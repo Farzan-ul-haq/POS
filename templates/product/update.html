@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    .header {
+        text-align: center
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <h1 class="header">Update Product</h1>
+    <div class="mx-5 px-2">
+        <form action="." method="POST">{%csrf_token%}
+          {{form|crispy}}
+          <button type="submit" class="btn btn-primary col-12">Submit</button>
+          </form>
+    </div>
+</div>
+
+{% endblock body %}

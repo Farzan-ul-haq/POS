@@ -4,7 +4,7 @@ from django.db import models
 
 class Order(models.Model):
     timestamp = models.DateTimeField()
-    products = models.JSONField()
+    products = models.CharField(max_length=5000)
 
     def __str__(self):
         return f"{self.id} | {self.timestamp}"
