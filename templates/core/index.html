@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    .left_header {
+        text-align: center;
+    }
+
+
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="col-12 my-5">
+    <div class="row">
+        <div class="col-8 card ">
+            <div class="row bg-dark text-white">
+                <div class="col-12 mb-0 text-warning left_header">
+                    <h2>Products</h2>
+                </div>
+                {% for category in categories %}
+                <div class="alert alert-light col-12 mb-0">
+                    <h5 class="text-info">{{category.title}}</h5>
+                </div>
+                {% for product in category.get_products %}
+                <div class="col-4 card-header border-right">
+                    <div class="header">{{product.name}}({{product.price}})</div>
+                    <a href="{% url 'order:add' product.id %}" class="badge badge-success">Add</a>
+                    <a href="{% url 'product:update' product.id%}" class="badge badge-warning">Update</a>
+                    <a href="{% url 'product:delete' product.id%}" class="badge badge-danger">Delete</a>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="col-4 card bg-dark">
+            <div class="row">
+
+                <div class="col-12 mb-0 text-warning left_header ">
+                    <h2>Orders</h2>
+                </div>
+                <div class="col-11 mt-2 mx-3 card order-items">
+                    <table>
+                        <tr class="table-header border-bottom">
+                            <td><b>Product</b></td>
+                            <td><b>Qty</b></td>
+                        </tr>
+                        {% for key, value in order_data.items %}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td>x{{value}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="col-12 mt-2">
+                    <h4 class="text-white"><b>Total Price: {{total_price}}</b></h4>
+                    <a href="{% url 'order:submit' %}" class="btn btn-success mb-2">Submit Order</a>
+                    <a href="{% url 'order:empty' %}" class="btn btn-warning  mb-2">Clear Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
