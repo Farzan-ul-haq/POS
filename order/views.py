@@ -26,3 +26,8 @@ def submit(request):
         products = request.session['order_items']
     )
     return empty(request)
+
+def list(request):
+    return render(request, 'order/list.html', {
+        'orders': Order.objects.all().order_by('-id')
+    })
